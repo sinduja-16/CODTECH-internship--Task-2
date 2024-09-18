@@ -1,0 +1,70 @@
+# Function to calculate letter grade based on percentage
+def calculate_letter_grade(average_grade):
+    if average_grade >= 90:
+        return 'A'
+    elif average_grade >= 80:
+        return 'B'
+    elif average_grade >= 70:
+        return 'C'
+    elif average_grade >= 60:
+        return 'D'
+    else:
+        return 'F'
+
+# Function to calculate GPA based on letter grade
+def calculate_gpa(letter_grade):
+    gpa_scale = {'A': 4.0, 'B': 3.0, 'C': 2.0, 'D': 1.0, 'F': 0.0}
+    return gpa_scale.get(letter_grade, 0.0)
+
+# Function to input student grades for multiple subjects
+def input_grades():
+    grades = {}
+    print("Enter the grades for each subject or assignment.")
+    while True:
+        subject = input("Enter subject or assignment name (or type 'done' to finish): ")
+        if subject.lower() == 'done':
+            break
+        try:
+            grade = float(input(f"Enter grade for {subject}: "))
+            if 0 <= grade <= 100:
+                grades[subject] = grade
+            else:
+                print("Please enter a valid grade between 0 and 100.")
+        except ValueError:
+            print("Invalid input. Please enter a numerical grade.")
+    return grades
+
+# Function to calculate average grade
+def calculate_average(grades):
+    if not grades:
+        return 0
+    total = sum(grades.values())
+    return total / len(grades)
+
+# Main function to run the program
+def main():
+    print("Student Grade Tracker")
+    
+    # Input grades
+    grades = input_grades()
+    
+    # Calculate average grade
+    average_grade = calculate_average(grades)
+    print(f"\nAverage Grade: {average_grade:.2f}%")
+    
+    # Calculate letter grade
+    letter_grade = calculate_letter_grade(average_grade)
+    print(f"Letter Grade: {letter_grade}")
+    
+    # Calculate GPA
+    gpa = calculate_gpa(letter_grade)
+    print(f"GPA: {gpa:.2f}")
+
+    # Display grades for each subject
+    if grades:
+        print("\nGrades per subject/assignment:")
+        for subject, grade in grades.items():
+            print(f"{subject}: {grade:.2f}%")
+
+if __name__ == "__main__":
+    main()
